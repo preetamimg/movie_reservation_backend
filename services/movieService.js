@@ -8,3 +8,14 @@ exports.getMovie = async (key, value)=> {
     
   }
 }
+
+exports.updateMovieReleaseStatus = async ()=> {
+  try {
+    const data = await MovieModel.updateMany(
+      {releaseDate : {$lte : new Date()}, movieReleaseStatus : 'upcoming'},
+      {$set : {movieReleaseStatus : 'released'}}
+    )
+  } catch (error) {
+    console.log('error')
+  }
+}

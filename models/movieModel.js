@@ -20,7 +20,7 @@ const movieSchema = new mongoose.Schema({
     type: Number
   },
   releaseDate : {
-    type: String
+    type: Date
   },
   generes : [{
     required : true,
@@ -40,6 +40,11 @@ const movieSchema = new mongoose.Schema({
   isDeleted: {
     type: Boolean,   
     default: false,
+  },
+  movieReleaseStatus: {
+    type : String,
+    enum : ['upcoming', 'released'],
+    default: 'upcoming'
   },
 }, {timestamps: true})
 

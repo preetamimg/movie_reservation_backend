@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const MovieModel = require("../models/movieModel")
-const { getMovie } = require("../services/movieService")
+const { getMovie, updateMovieReleaseStatus } = require("../services/movieService")
 const { checkAdmin } = require("../services/userService");
 const { removeImage } = require("../utils/removeImage");
 const { responseError, responseSuccess, responseInternalServerError } = require("../utils/responseHandlers")
@@ -27,7 +27,7 @@ exports.addMovie = async (req, res)=> {
           description, 
           trailerUrl, 
           duration, 
-          releaseDate, 
+          releaseDate : new Date(releaseDate), 
           generes, 
           language, 
           rating
@@ -53,6 +53,9 @@ exports.getMovies = async (req, res)=> {
   const genereId = req.query.genereId
 
   try {
+
+    await updateMovieReleaseStatus()
+
     const pipeline = [
       {
         '$match': {
@@ -125,7 +128,7 @@ exports.getMovies = async (req, res)=> {
 
     const data = await MovieModel.aggregate(pipeline)
   
-    responseSuccess(res, "movie list", {data:pipeline})
+    responseSuccess(res, "movie list", data?.[0])
   } catch (error) {
     console.log('error', error)
       responseInternalServerError(res)
@@ -228,7 +231,7 @@ exports.editMovie = async (req, res)=> {
             description : updatedData?.description, 
             trailerUrl : updatedData?.trailerUrl, 
             duration : updatedData?.duration, 
-            releaseDate : updatedData?.releaseDate, 
+            releaseDate : new Date(updatedData?.releaseDate), 
             generes : updatedData?.generes, 
             language : updatedData?.language, 
             rating : updatedData?.rating

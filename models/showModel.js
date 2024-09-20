@@ -29,6 +29,14 @@ const showSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  isDeleted : {
+    type: Boolean,
+    default: false
+  },
+  isBookingClosed : {
+    type: Boolean,
+    default: false
+  },
 }, {timestamps: true})
 
 const showModel = mongoose.model('show', showSchema)

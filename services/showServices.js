@@ -135,3 +135,17 @@ exports.check_show_availability = async (req, res)=> {
     console.log(error)
   }
 }
+
+
+exports.update_show_available_for_booking_time = async ()=> {
+  try {
+    const currentTime = new Date();
+    const thirtyMinutesAgo = new Date(currentTime.getTime() - 30 * 60 * 1000)
+    const data = await showModel.updateMany(
+      {timeAndDate : {$lte : thirtyMinutesAgo}},
+      {$set : {isBookingClosed : true}}
+    )
+  } catch (error) {
+    console.log(error)
+  }
+}

@@ -13,6 +13,17 @@ exports.checkAdmin = async (req)=> {
 }
 
 
+exports.getUserDetails = async (req)=> {
+  const {id} = req.auth;
+  try {
+    const user = await UserModel.findOne({_id: id})
+    return user
+  } catch (error) {
+    responseError(error, "error", 404)
+  }
+}
+
+
 exports.getUser = async (id)=> {
   try {
     const user = await UserModel.findOne({_id: id})

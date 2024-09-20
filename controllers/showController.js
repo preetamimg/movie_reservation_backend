@@ -1,5 +1,5 @@
 const showModel = require("../models/showModel")
-const { check_show_availability } = require("../services/showServices")
+const { check_show_availability, update_show_available_for_booking_time } = require("../services/showServices")
 const { checkAdmin } = require("../services/userService")
 const { responseError, responseSuccess, responseInternalServerError } = require("../utils/responseHandlers")
 
@@ -27,5 +27,16 @@ exports.createShow = async (req, res)=> {
     }
   } catch (error) {
     console.log(error)
+  }
+}
+
+
+exports.getShows = async (req, res) => {
+  try {
+    await update_show_available_for_booking_time()
+    const pipeline = []
+    const data = await showModel.aggregate(pipeline)
+  } catch (error) {
+    
   }
 }

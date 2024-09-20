@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
     default: 'user',
     type: String
   },
+  wishlist : [{
+    required : true,
+    type: Schema.Types.ObjectId,
+    ref: "movies"
+  }],
 }, {timestamps: true})
 
 const UserModel = mongoose.model('users', userSchema)

@@ -3,8 +3,7 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
-// mongoose.connect(`${process.env.MONGO_URL}`, 
-// {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(`${process.env.MONGO_URL}`)
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/movieReservation')
+// mongoose.connect('mongodb://127.0.0.1:27017/movieReservation')

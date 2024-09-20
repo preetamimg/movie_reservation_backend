@@ -2,7 +2,7 @@ const UserModel = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv'); 
-const { checkAdmin, getUser } = require("../services/userService");
+const { checkAdmin, getUser, getUserDetails } = require("../services/userService");
 const { responseError, responseSuccess } = require("../utils/responseHandlers");
 
 dotenv.config();
@@ -107,3 +107,12 @@ exports.ChangeUserRole = async (req, res) => {
 
   }
 } 
+
+exports.addRemoveMovieToWishlist = async (req, res)=> {
+  const movieId = req.query.movieId
+  try {
+    const user = await getUserDetails(req)
+  } catch (error) {
+    console.log('error', error)
+  }
+}
